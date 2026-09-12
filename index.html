@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sretan rođendan, Andrija!</title>
+<style>
+  :root{
+    --dinamo-blue:#0033a0;
+    --dinamo-blue-dark:#001d5e;
+    --dinamo-red:#e30613;
+    --dinamo-gold:#c9a227;
+    --dinamo-gold-light:#f0d878;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(227,6,19,0.18) 0%, transparent 40%),
+      radial-gradient(ellipse at 80% 20%, rgba(201,162,39,0.22) 0%, transparent 35%),
+      radial-gradient(ellipse at 50% 90%, rgba(0,51,160,0.45) 0%, transparent 50%),
+      linear-gradient(165deg, #00081f 0%, #001a4d 25%, #0033a0 55%, #00143a 100%);
+    background-attachment:fixed;
+    font-family:'Segoe UI', Arial, sans-serif;
+    color:var(--white);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:40px 16px 60px;
+    overflow-x:hidden;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 48px),
+      repeating-linear-gradient(-45deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 48px);
+    pointer-events:none;
+    z-index:0;
+  }
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(circle at 50% 0%, transparent 40%, rgba(0,0,0,0.35) 100%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .content{ position:relative; z-index:1; width:100%; max-width:760px; display:flex; flex-direction:column; align-items:center;}
+
+  .stars{
+    display:flex;
+    gap:18px;
+    margin-bottom:8px;
+  }
+  .star{
+    width:34px; height:34px;
+    color:var(--dinamo-gold);
+    filter:drop-shadow(0 0 6px rgba(201,162,39,0.6));
+    animation:twinkle 2.4s ease-in-out infinite;
+  }
+  .star:nth-child(2){animation-delay:.3s;}
+  .star:nth-child(3){animation-delay:.6s;}
+  @keyframes twinkle{
+    0%,100%{transform:scale(1); opacity:1;}
+    50%{transform:scale(1.15); opacity:.75;}
+  }
+
+  .crest{
+    width:240px; height:240px;
+    border-radius:50%;
+    position:relative;
+    margin:18px 0 10px;
+    border:5px solid var(--dinamo-gold);
+    box-shadow:
+      0 0 0 4px var(--dinamo-blue-dark),
+      0 12px 35px rgba(0,0,0,0.55),
+      0 0 50px rgba(201,162,39,0.4),
+      0 0 80px rgba(0,51,160,0.3);
+    overflow:hidden;
+    background:#000;
+    animation:floatCrest 4s ease-in-out infinite;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .crest img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  @keyframes floatCrest{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+  }
+
+  h1{
+    font-size:2.3rem;
+    margin:6px 0 2px;
+    text-align:center;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--dinamo-gold-light);
+    text-shadow:0 2px 10px rgba(0,0,0,0.4);
+  }
+  .name{
+    font-size:3.4rem;
+    font-weight:800;
+    margin:4px 0 6px;
+    text-align:center;
+    color:var(--white);
+    text-shadow:0 0 20px rgba(255,255,255,0.35), 0 4px 8px rgba(0,0,0,0.45);
+    letter-spacing:2px;
+    cursor:pointer;
+    transition:transform .2s ease, text-shadow .2s ease;
+    user-select:none;
+  }
+  .name:hover{
+    transform:scale(1.04);
+    text-shadow:0 0 30px var(--dinamo-gold-light), 0 4px 8px rgba(0,0,0,0.45);
+  }
+  .name-hint{
+    font-size:0.75rem;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color:var(--dinamo-gold-light);
+    text-align:center;
+    margin-bottom:14px;
+    opacity:.85;
+    animation:pulseHint 2s ease-in-out infinite;
+  }
+  @keyframes pulseHint{
+    0%,100%{opacity:.5;}
+    50%{opacity:1;}
+  }
+  .subtitle{
+    color:rgba(255,255,255,0.85);
+    font-size:1.05rem;
+    text-align:center;
+    margin-bottom:24px;
+  }
+  .subtitle b{color:var(--dinamo-gold-light);}
+
+  /* Music player on home */
+  .music-home{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(201,162,39,0.45);
+    border-radius:14px;
+    padding:14px 18px;
+    width:100%;
+    max-width:420px;
+    margin-bottom:22px;
+    text-align:center;
+  }
+  .music-home h3{
+    margin:0 0 10px;
+    font-size:0.95rem;
+    color:var(--dinamo-gold-light);
+    text-transform:uppercase;
+    letter-spacing:1px;
+  }
+  .music-home audio{
+    width:100%;
+    height:40px;
+    border-radius:8px;
+    margin-top:4px;
+  }
+  .music-note{
+    font-size:0.75rem;
+    color:rgba(255,255,255,0.6);
+    margin-top:8px;
+  }
+  .music-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:linear-gradient(160deg, var(--dinamo-blue), var(--dinamo-blue-dark));
+    border:2px solid var(--dinamo-gold);
+    color:var(--white);
+    padding:10px 20px;
+    border-radius:12px;
+    font-size:0.95rem;
+    cursor:pointer;
+    margin-top:6px;
+  }
+  .music-btn:hover{ background:var(--dinamo-blue); }
+
+  .card{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(201,162,39,0.4);
+    border-radius:18px;
+    padding:26px 30px;
+    width:100%;
+    text-align:center;
+    backdrop-filter:blur(4px);
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+    margin-bottom:26px;
+  }
+  .card h2{
+    margin:0 0 18px;
+    font-size:1.2rem;
+    color:var(--dinamo-gold-light);
+    text-transform:uppercase;
+    letter-spacing:1px;
+  }
+  .countdown{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .unit{
+    background:linear-gradient(160deg, var(--dinamo-blue), var(--dinamo-blue-dark));
+    border:2px solid var(--dinamo-gold);
+    border-radius:12px;
+    padding:14px 16px;
+    min-width:78px;
+  }
+  .unit .num{
+    font-size:2.1rem;
+    font-weight:800;
+    display:block;
+    color:var(--white);
+  }
+  .unit .label{
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--dinamo-gold-light);
+  }
+
+  .msg-box{
+    background:linear-gradient(135deg, rgba(227,6,19,0.12), rgba(0,51,160,0.25));
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:18px;
+    padding:28px;
+    text-align:center;
+    line-height:1.6;
+    font-size:1.05rem;
+    color:rgba(255,255,255,0.95);
+    margin-bottom:30px;
+  }
+  .msg-box .amblem-line{
+    font-size:1.5rem;
+    color:var(--dinamo-gold-light);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+
+  .scarf{
+    display:flex;
+    width:100%;
+    height:14px;
+    border-radius:7px;
+    overflow:hidden;
+    margin-bottom:34px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.35);
+  }
+  .scarf div{flex:1;}
+  .scarf div:nth-child(odd){background:var(--dinamo-blue);}
+  .scarf div:nth-child(even){background:var(--white);}
+
+  footer{
+    margin-top:10px;
+    text-align:center;
+    color:rgba(255,255,255,0.55);
+    font-size:0.85rem;
+    letter-spacing:0.5px;
+  }
+  footer b{color:var(--dinamo-gold);}
+
+  /* FULLSCREEN SLIDESHOW */
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:#000d2e;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:0;
+  }
+  .overlay.open{ display:flex; }
+
+  .slideshow-container{
+    width:100%;
+    height:100%;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(160deg, #000d2e 0%, #001d5e 40%, #0033a0 100%);
+  }
+
+  .slide-music{
+    position:absolute;
+    top:16px;
+    left:16px;
+    z-index:20;
+    background:rgba(0,0,0,0.55);
+    border:1px solid var(--dinamo-gold);
+    border-radius:10px;
+    padding:8px 12px;
+    max-width:280px;
+  }
+  .slide-music iframe{
+    width:100%;
+    height:60px;
+    border:none;
+    border-radius:6px;
+  }
+  .slide-music-label{
+    font-size:0.7rem;
+    color:var(--dinamo-gold-light);
+    margin-bottom:4px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+  }
+
+  .slide-close{
+    position:absolute;
+    top:16px;
+    right:16px;
+    z-index:20;
+    background:rgba(0,0,0,0.55);
+    border:2px solid var(--dinamo-gold);
+    color:var(--dinamo-gold-light);
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    font-size:1.3rem;
+    cursor:pointer;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .slide-close:hover{ background:rgba(201,162,39,0.25); }
+
+  .slide-frame{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .slide{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    transform:scale(0.96);
+    transition:opacity 0.9s ease, transform 0.9s ease;
+    pointer-events:none;
+    padding:60px 20px 80px;
+  }
+  .slide.active{
+    opacity:1;
+    transform:scale(1);
+    pointer-events:auto;
+  }
+
+  .slide-photo{
+    width:min(85vw, 720px);
+    height:min(65vh, 520px);
+    border:4px solid var(--dinamo-gold);
+    border-radius:16px;
+    box-shadow:0 0 0 3px var(--dinamo-blue-dark), 0 20px 50px rgba(0,0,0,0.55), 0 0 40px rgba(201,162,39,0.3);
+    background:rgba(255,255,255,0.06);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    color:rgba(255,255,255,0.7);
+    font-size:1.1rem;
+    overflow:hidden;
+  }
+  .slide-photo svg{
+    width:64px;
+    height:64px;
+    opacity:0.5;
+  }
+  .slide-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .slide-caption{
+    margin-top:18px;
+    font-size:1.15rem;
+    color:var(--dinamo-gold-light);
+    text-align:center;
+    text-shadow:0 2px 8px rgba(0,0,0,0.5);
+    letter-spacing:1px;
+  }
+
+  .slide-progress{
+    position:absolute;
+    bottom:24px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:8px;
+    z-index:15;
+  }
+  .dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.3);
+    border:1px solid var(--dinamo-gold);
+    transition:background 0.3s;
+  }
+  .dot.active{
+    background:var(--dinamo-gold);
+  }
+
+  .slide-counter{
+    position:absolute;
+    bottom:24px;
+    right:24px;
+    font-size:0.9rem;
+    color:rgba(255,255,255,0.7);
+    z-index:15;
+  }
+
+  .slide-end{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    text-align:center;
+    padding:40px;
+  }
+  .slide-end.show{ display:flex; }
+  .slide-end h2{
+    color:var(--dinamo-gold-light);
+    font-size:1.8rem;
+    margin:0;
+  }
+  .slide-end p{
+    color:rgba(255,255,255,0.85);
+    font-size:1.1rem;
+    max-width:400px;
+  }
+  .btn-restart{
+    background:linear-gradient(160deg, var(--dinamo-blue), var(--dinamo-blue-dark));
+    border:2px solid var(--dinamo-gold);
+    color:var(--white);
+    padding:12px 28px;
+    border-radius:12px;
+    font-size:1rem;
+    cursor:pointer;
+    margin-top:10px;
+  }
+  .btn-restart:hover{ background:var(--dinamo-blue); }
+
+  @media (max-width:480px){
+    .name{font-size:2.4rem;}
+    .crest{width:190px;height:190px;}
+    .slide-photo{height:min(55vh, 400px);}
+    .slide-music{max-width:200px; top:10px; left:10px;}
+    .slide-close{top:10px; right:10px; width:38px; height:38px;}
+  }
+</style>
+</head>
+<body>
+<div class="content">
+
+  <div class="stars">
+    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .6l3.2 7.2 7.8.7-6 5.2 1.9 7.7L12 17.8 5.1 21.4l1.9-7.7-6-5.2 7.8-.7z"/></svg>
+    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .6l3.2 7.2 7.8.7-6 5.2 1.9 7.7L12 17.8 5.1 21.4l1.9-7.7-6-5.2 7.8-.7z"/></svg>
+    <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .6l3.2 7.2 7.8.7-6 5.2 1.9 7.7L12 17.8 5.1 21.4l1.9-7.7-6-5.2 7.8-.7z"/></svg>
+  </div>
+
+  <div class="crest">
+    <img src="DInamo.png" alt="GNK Dinamo Zagreb grb" />
+  </div>
+
+  <h1>Sretan rođendan</h1>
+  <div class="name" id="nameTrigger">ANDRIJA</div>
+  <div class="name-hint">👆 klikni na ime za uspomene (fullscreen slideshow)</div>
+  <div class="subtitle">25. rujna <b>2026.</b> — plavo-bijeli praznik u obitelji 💙🤍</div>
+
+  <!-- Playlist u pozadini – kruži cijelo vrijeme (i kroz slideshow) -->
+  <audio id="playlistAudio" preload="auto" style="display:none"></audio>
+
+  <div class="card">
+    <h2>Odbrojavanje do rođendana</h2>
+    <div class="countdown" id="countdown">
+      <div class="unit"><span class="num" id="days">--</span><span class="label">Dana</span></div>
+      <div class="unit"><span class="num" id="hours">--</span><span class="label">Sati</span></div>
+      <div class="unit"><span class="num" id="mins">--</span><span class="label">Min</span></div>
+      <div class="unit"><span class="num" id="secs">--</span><span class="label">Sek</span></div>
+    </div>
+  </div>
+
+  <div class="msg-box">
+    <div class="amblem-line"> Champion. Legenda. Tata. 🏆</div>
+    Kao što Dinamo nosi grb s ponosom kroz svaku sezonu, tako i ti nosiš svoju obitelj kroz život — uz snagu, srce i vjernost.
+    Neka ova nova godina donese pobjede, zdravlje i puno razloga za slavlje. Sretan rođendan, Andrija! 💙
+  </div>
+
+  <div class="scarf">
+    <div></div><div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <footer>Napravio s ljubavlju <b>Matija Šćuric</b> · GNK Dinamo Zagreb tema</footer>
+</div>
+
+<!-- FULLSCREEN SLIDESHOW -->
+<div class="overlay" id="galleryOverlay">
+  <div class="slideshow-container">
+    <button class="slide-close" id="closeGallery" title="Zatvori">✕</button>
+
+    <div class="slide-frame" id="slideFrame">
+      <!-- slides will be injected here -->
+    </div>
+
+    <div class="slide-progress" id="slideProgress"></div>
+    <div class="slide-counter" id="slideCounter"></div>
+
+    <div class="slide-end" id="slideEnd">
+      <h2>🏆 Za tebe, Andrija 🏆</h2>
+      <p>
+        Kao što se plava boja nikad ne gasi na Maksimiru,<br>
+        tako i tvoja snaga, ljubav i osmijeh ostaju zauvijek u našim srcima.<br><br>
+        Hvala što si naš šampion — tata, legenda i najbolji čovjek.<br>
+        Sretan rođendan! Neka ti ova godina donese samo pobjede. 💙🤍
+      </p>
+      <button class="btn-restart" id="btnRestart">Pogledaj ponovno</button>
+      <button class="btn-restart" id="btnCloseEnd" style="margin-top:8px; background:transparent;">Zatvori</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const target = new Date("2026-09-25T00:00:00");
+  function update(){
+    const now = new Date();
+    let diff = target - now;
+    if(diff < 0) diff = 0;
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff / (1000*60*60)) % 24);
+    const m = Math.floor((diff / (1000*60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    document.getElementById('days').textContent = d;
+    document.getElementById('hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('mins').textContent = String(m).padStart(2,'0');
+    document.getElementById('secs').textContent = String(s).padStart(2,'0');
+  }
+  update();
+  setInterval(update, 1000);
+
+  // ===== PLAYLIST – kruži cijelo vrijeme (home + slideshow) =====
+  const playlist = [
+    '1.mp3',
+    '2.mp3',
+    '3.mp3',
+    '4.mp3',
+    '5.mp3',
+    '6.mp3'
+  ];
+  let trackIndex = 0;
+  const audio = document.getElementById('playlistAudio');
+
+  function loadTrack(i) {
+    trackIndex = ((i % playlist.length) + playlist.length) % playlist.length;
+    audio.src = playlist[trackIndex];
+    audio.load();
+  }
+
+  function playNext() {
+    loadTrack(trackIndex + 1);
+    audio.play().catch(()=>{});
+  }
+
+  audio.addEventListener('ended', playNext);
+
+  function tryPlay() {
+    loadTrack(0);
+    audio.play().catch(() => {
+      // preglednici blokiraju autoplay – prvi klik bilo gdje pali playlist
+      const unlock = () => {
+        audio.play().catch(()=>{});
+        document.removeEventListener('click', unlock);
+        document.removeEventListener('touchstart', unlock);
+      };
+      document.addEventListener('click', unlock, {once:true});
+      document.addEventListener('touchstart', unlock, {once:true});
+    });
+  }
+
+  if (document.readyState === 'complete') {
+    tryPlay();
+  } else {
+    window.addEventListener('load', tryPlay);
+  }
+
+  // ===== FULLSCREEN SLIDESHOW =====
+  const totalPhotos = 8;
+  const slideDuration = 4500; // ms po slici
+  const overlay = document.getElementById('galleryOverlay');
+  const slideFrame = document.getElementById('slideFrame');
+  const slideProgress = document.getElementById('slideProgress');
+  const slideCounter = document.getElementById('slideCounter');
+  const slideEnd = document.getElementById('slideEnd');
+
+  let currentIndex = 0;
+  let slideTimer = null;
+  let slides = [];
+
+  // Kreiraj slideove (placeholderi – zamijeni src slikama kad ih dodaš)
+  for(let i = 1; i <= totalPhotos; i++){
+    const slide = document.createElement('div');
+    slide.className = 'slide';
+    slide.innerHTML = `
+      <div class="slide-photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="5" width="18" height="14" rx="2"/>
+          <circle cx="8.5" cy="10.5" r="1.5"/>
+          <path d="M21 15l-5-5-4 4-3-3-4 4"/>
+        </svg>
+        <span>Foto ${i}</span>
+        <small style="opacity:0.5;font-size:0.85rem;">Dodaj svoju fotografiju ovdje</small>
+      </div>
+      <div class="slide-caption">Uspomena ${i} / ${totalPhotos}</div>
+    `;
+    slideFrame.appendChild(slide);
+    slides.push(slide);
+
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    if(i === 1) dot.classList.add('active');
+    slideProgress.appendChild(dot);
+  }
+
+  function showSlide(index){
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === index);
+    });
+    const dots = slideProgress.querySelectorAll('.dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    slideCounter.textContent = `${index + 1} / ${totalPhotos}`;
+  }
+
+  function nextSlide(){
+    currentIndex++;
+    if(currentIndex >= totalPhotos){
+      // kraj – sve su prošle
+      clearInterval(slideTimer);
+      slideTimer = null;
+      slides.forEach(s => s.classList.remove('active'));
+      slideProgress.style.display = 'none';
+      slideCounter.style.display = 'none';
+      slideEnd.classList.add('show');
+      return;
+    }
+    showSlide(currentIndex);
+  }
+
+  function startSlideshow(){
+    currentIndex = 0;
+    slideEnd.classList.remove('show');
+    slideProgress.style.display = 'flex';
+    slideCounter.style.display = 'block';
+    showSlide(0);
+    if(slideTimer) clearInterval(slideTimer);
+    slideTimer = setInterval(nextSlide, slideDuration);
+  }
+
+  function stopSlideshow(){
+    if(slideTimer){
+      clearInterval(slideTimer);
+      slideTimer = null;
+    }
+  }
+
+  // Otvaranje
+  document.getElementById('nameTrigger').addEventListener('click', () => {
+    overlay.classList.add('open');
+    // pokušaj fullscreen
+    if(overlay.requestFullscreen){
+      overlay.requestFullscreen().catch(()=>{});
+    } else if(overlay.webkitRequestFullscreen){
+      overlay.webkitRequestFullscreen();
+    }
+    startSlideshow();
+  });
+
+  // Zatvaranje
+  function closeGallery(){
+    stopSlideshow();
+    overlay.classList.remove('open');
+    if(document.fullscreenElement){
+      document.exitFullscreen().catch(()=>{});
+    }
+  }
+
+  document.getElementById('closeGallery').addEventListener('click', closeGallery);
+  document.getElementById('btnCloseEnd').addEventListener('click', closeGallery);
+  document.getElementById('btnRestart').addEventListener('click', () => {
+    startSlideshow();
+  });
+
+  // ESC za zatvaranje
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && overlay.classList.contains('open')){
+      closeGallery();
+    }
+  });
+
+  // klik izvan (nije potreban jer je fullscreen, ali za sigurnost)
+  overlay.addEventListener('click', (e) => {
+    if(e.target === overlay) closeGallery();
+  });
+</script>
+</body>
+</html>
